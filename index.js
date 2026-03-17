@@ -21,8 +21,9 @@ app.get("/generate-pdf", async (req, res) => {
     const quote_no = req.query.quote_no;
     console.log(quote_no);
     const browser = await puppeteer.launch({
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
       headless: "new",
-      args: ["--no-sandbox", "--font-render-hinting=none",],
+      args: ["--no-sandbox", "--font-render-hinting=none", "--disable-setuid-sandbox"],
     });
 
     const page = await browser.newPage();
